@@ -1,6 +1,6 @@
 //*Imports
 import { React, useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //*Components
@@ -18,7 +18,6 @@ const App = () => {
   const [films, setFilms] = useState([]);
   const [people, setPeople] = useState([]);
   const [locations, setLocations] = useState([]);
-  const history = useHistory(); // this creates the history object so that i can direct users to the error landing page if the fetch fails
 
   /** the props object contains:
    * props.movies
@@ -26,64 +25,35 @@ const App = () => {
    * props.locations
    */
 
-  const getData = async () => {
-    try {
-      // fetches data from the api for people
-      const response1 = await fetch("https://ghibliapi.herokuapp.com/people"); // this is the fetch
-      const peopleData = await response1.json(); // parses the response as JSON data to produce a JS object
-      setPeople(peopleData); // passes the people object to the people state, which is then sent to the components
-
-      // fetches data from the api for films
-      const response2 = await fetch("https://ghibliapi.herokuapp.com/films"); // this is the fetch
-      const filmData = await response2.json(); // parses the response as JSON data to produce a JS object
-      setFilms(filmData); // passes the films object to the films state, which is then sent to the components
-
-      // fetches data from the api for locations
-      const response3 = await fetch("https://ghibliapi.herokuapp.com/locations"); // this is the fetch
-      const locationdata = await response3.json(); // parses the response as JSON data to produce a JS object
-      setLocations(locationdata); // passes the locations object to the locations state, which is then sent to the components
-    } catch (error) {
-      history.push("/errorlanding"); // displays an error page if fetch is unsuccessful
-    }
-  };
-
-  useEffect(() => {
-    getData(); // fetches people, films, and locations data after the home page renders
-  }, []); // empty dependency array means we only fetch this data once
+  /**
+   * props.getFilms
+   * props.getPeople
+   * props.getLocations
+   */
 
   return (
     <BrowserRouter>
       <Navbar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
+      <Routes>
+        <Route path="/" element={<Home getFilms={setFilms} getPeople={setPeople} getLocations={setLocations} />} />
+
+        <Route path="/films">
+          <Route index element={<Films characters={people} movies={films} locations={locations} />} />
+          <Route path=":filmid" element={<FilmDetails characters={people} movies={films} locations={locations} />} />
         </Route>
 
-        <Route exact path="/films">
-          <Films characters={people} movies={films} locations={locations} />
-        </Route>
-        <Route exact path="/films/:filmid">
-          <FilmDetails characters={people} movies={films} locations={locations} />
+        <Route path="/characters">
+          <Route index element={<Characters characters={people} movies={films} locations={locations} />} />
+          <Route path=":characterid" element={<CharacterDetails characters={people} movies={films} locations={locations} />} />
         </Route>
 
-        <Route exact path="/characters">
-          <Characters characters={people} movies={films} locations={locations} />
-        </Route>
-        <Route exact path="/characters/:characterid">
-          <CharacterDetails characters={people} movies={films} locations={locations} />
+        <Route path="/locations">
+          <Route index element={<Locations characters={people} movies={films} locations={locations} />} />
+          <Route path=":locationid" element={<LocationDetails characters={people} movies={films} locations={locations} />} />
         </Route>
 
-        <Route exact path="/locations">
-          <Locations characters={people} movies={films} locations={locations} />
-        </Route>
-        <Route exact path="/locations/:locationid">
-          <LocationDetails characters={people} movies={films} locations={locations} />
-        </Route>
-
-        <Route exact path="/errorlanding">
-          <ErrorLanding />
-        </Route>
-      </Switch>
+        <Route path="/errorlanding" element={<ErrorLanding />} />
+      </Routes>
     </BrowserRouter>
   );
 };
