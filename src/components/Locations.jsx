@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const Locations = (props) => {
   /**
-   * props.movies
-   * props.characters
-   * props.locations
+   * props.movies - array of movie objects
+   * props.characters - array of movie characters
+   * props.locations - array of movie locations
    */
   return (
     <>

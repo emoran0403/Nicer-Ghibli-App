@@ -9,7 +9,7 @@ const FilmDetails = (props) => {
   /**
    * props.movies - array of movie objects
    * props.characters - array of movie characters
-   * props.locations
+   * props.locations - array of movie locations
    */
 
   const getCast = () => {
