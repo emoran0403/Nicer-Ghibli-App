@@ -1,6 +1,6 @@
 //*Imports
 import { React, useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //*Components
@@ -52,7 +52,7 @@ const App = () => {
   }, []); // empty dependency array means we only fetch this data once
 
   return (
-    <BrowserRouter>
+    <>
       <Navbar />
       <Switch>
         <Route exact path="/">
@@ -84,7 +84,7 @@ const App = () => {
           <ErrorLanding />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </>
   );
 };
 
