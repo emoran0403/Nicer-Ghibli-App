@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.1a8a0596.css",
-    "main.js": "/static/js/main.97959561.js",
-    "index.html": "/index.html",
-    "main.1a8a0596.css.map": "/static/css/main.1a8a0596.css.map",
-    "main.97959561.js.map": "/static/js/main.97959561.js.map"
+    "main.css": "/Nicer-Ghibli-App/static/css/main.1a8a0596.css",
+    "main.js": "/Nicer-Ghibli-App/static/js/main.97959561.js",
+    "index.html": "/Nicer-Ghibli-App/index.html",
+    "main.1a8a0596.css.map": "/Nicer-Ghibli-App/static/css/main.1a8a0596.css.map",
+    "main.97959561.js.map": "/Nicer-Ghibli-App/static/js/main.97959561.js.map"
   },
   "entrypoints": [
     "static/css/main.1a8a0596.css",
